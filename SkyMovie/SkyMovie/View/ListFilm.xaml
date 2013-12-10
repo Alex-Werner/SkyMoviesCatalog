@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="SkyMovie.View.ListFilm"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <DataGrid Name="DGFilms" Grid.Row="1" Grid.ColumnSpan="4" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" Style="{DynamicResource DataGridDemoStyle}" VerticalAlignment="Stretch" VerticalContentAlignment="Center" SelectionUnit="CellOrRowHeader" HeadersVisibility="All" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.Resources>
+                <Style TargetType="{x:Type DataGridCell}">
+
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="{Binding Path=Affiche}"></Image>
+                        <TextBlock Width="500"  Text="{Binding Path=Synopsis}" TextWrapping="Wrap" Foreground="White"></TextBlock>
+                    </StackPanel>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Path=Nom}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Genre" Binding="{Binding Path=Genre}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Durée" Binding="{Binding Path=Duree}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Année" Binding="{Binding Path=Annee}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Réalisateur" Binding="{Binding Path=Realisateur}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Acteurs principaux" Binding="{Binding Path=ActeursPrincipaux}"></DataGridTextColumn>
+                <DataGridCheckBoxColumn Header="Fichier SD" Binding="{Binding Path=FichierLd}"></DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Header="Fichier HD" Binding="{Binding Path=FichierHd}"></DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Header="DVD" Binding="{Binding Path=Dvd}"></DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Header="BluRay" Binding="{Binding Path=Bluray}"></DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Header="VF" Binding="{Binding Path=Vf}"></DataGridCheckBoxColumn>
+                <DataGridCheckBoxColumn Header="VOST" Binding="{Binding Path=Vost}"></DataGridCheckBoxColumn>
+                <DataGridTemplateColumn Header="Note" SortMemberPath="Note" CanUserSort="True">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Image Name="Star1" Height="24" Source="{Binding Path=Star1}"></Image>
+                                <Image Name="Star2" Height="24" Source="{Binding Path=Star2}"></Image>
+                                <Image Name="Star3" Height="24" Source="{Binding Path=Star3}"></Image>
+                                <Image Name="Star4" Height="24" Source="{Binding Path=Star4}"></Image>
+                                <Image Name="Star5" Height="24" Source="{Binding Path=Star5}"></Image>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Commentaire" Binding="{Binding Path=Observation}" Width="*" CanUserResize="True"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

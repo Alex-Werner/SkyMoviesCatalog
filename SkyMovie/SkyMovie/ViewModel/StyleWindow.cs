@@ -30,6 +30,7 @@ namespace SkyMovie
             //Comme on sait pas comment faire pour enlever la bordure dégeu lorsque resize n'est pas égale à none. Et bien l'user aura deux choix et pis voila !
             App.Current.MainWindow.WindowState = WindowState.Maximized;
         }
+
     }
 
 }

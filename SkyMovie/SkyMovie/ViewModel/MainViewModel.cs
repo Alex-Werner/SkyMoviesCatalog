@@ -8,7 +8,7 @@ using System.Timers;
 
 namespace SkyMovie.ViewModel
 { 
-    
+   
     public class MainViewModel : INotifyPropertyChanged
     {
         #region Property Changed Business
@@ -44,6 +44,7 @@ namespace SkyMovie.ViewModel
             }
         }
         #endregion
+
         public MainViewModel()
         {
             Timer timer = new Timer();
@@ -51,7 +52,7 @@ namespace SkyMovie.ViewModel
             timer.Interval = 1000; // Timer will tick every second 
             timer.Enabled = true;
             timer.Start(); // Start the timer 
-
+            
             StatusMiniBarText = "Ready !";
         }
 

@@ -1,20 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using SkyMovie.Model;
 
-namespace SkyMovie
+namespace SkyMovie.View
 {
     /// <summary>
     /// Logique d'interaction pour MainWindow.xaml
@@ -23,6 +13,10 @@ namespace SkyMovie
     
     public partial class MainWindow : Window
     {
+        private ListFilm _listFilmWpf;
+        private Statistiques _statistiquesmWpf;
+        private Recherche _rechercheWpf;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -30,12 +24,21 @@ namespace SkyMovie
             StatusBar myStatusBar = new StatusBar();
             myStatusBar.StatusText = "test";
 
+            _statistiquesmWpf = new Statistiques();
+
+            _listFilmWpf = new ListFilm();
+            _rechercheWpf = new Recherche();
+            
+            contentGrid.Children.Add((UserControl)_listFilmWpf);
+
         }
 
         /* Method used for dragging the title bar */
         bool inDrag = false;
         Point anchorPoint;
 
+
+        
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             anchorPoint = PointToScreen(e.GetPosition(this));
@@ -64,6 +67,39 @@ namespace SkyMovie
                 e.Handled = true;
                 
             }
+        }
+
+        public void RemoveChild()
+        {
+            contentGrid.Children.Clear();
+        }
+        private void SkyMenu_Click(object sender, RoutedEventArgs e)
+        {
+
+           // SkyMenu.SelectedItem = SkyMenu.Items.CurrentItem;
+        }
+
+        private void SkyMenu_MaCollection_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveChild();
+            contentGrid.Children.Add((UserControl)_listFilmWpf);
+
+        }
+        private void SkyMenu_Exporter_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveChild();
+        }
+        private void SkyMenu_Statistiques_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveChild();
+            contentGrid.Children.Add((UserControl)_statistiquesmWpf);
+
+        }
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            RemoveChild();
+            contentGrid.Children.Add((UserControl) _rechercheWpf);
         }
     }
 }
