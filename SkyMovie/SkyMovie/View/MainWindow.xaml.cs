@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SkyMovie.Model;
 
 namespace SkyMovie
 {
@@ -22,20 +23,16 @@ namespace SkyMovie
     
     public partial class MainWindow : Window
     {
-        private ResourceDictionary Style;
         public MainWindow()
         {
             InitializeComponent();
             ImageSource source = this.Icon;
+            StatusBar myStatusBar = new StatusBar();
+            myStatusBar.StatusText = "test";
 
-
-            Style = new ResourceDictionary();
-
-            Style.Source = new Uri("/SkyMovie;component/Style.xaml",
-                    UriKind.RelativeOrAbsolute);
-
-            
         }
+
+        /* Method used for dragging the title bar */
         bool inDrag = false;
         Point anchorPoint;
 
