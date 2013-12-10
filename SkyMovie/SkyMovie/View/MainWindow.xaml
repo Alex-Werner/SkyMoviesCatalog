@@ -30,11 +30,28 @@
             <Grid.Background>
                 <ImageBrush ImageSource="/SkyMovie;component/Images/bg.jpg"/>
             </Grid.Background>
-            <StackPanel HorizontalAlignment="Left" Height="727" Margin="10,32,0,0" VerticalAlignment="Top" Width="177"/>
-            <TabControl Margin="192,0,0,0">
+            <DockPanel HorizontalAlignment="Left" Height="750" Margin="0,0,0,-3" VerticalAlignment="Top" Width="200">
+                <TextBox Margin="3" DockPanel.Dock="Top"/>
+
+                <ListBox DockPanel.Dock="Top" Height="513" Background="Transparent" Opacity="0.5">
+                    <Menu Height="100" Width="100">
+                        <MenuItem Header="Découvrir"/>
+                        <MenuItem Header="Ma collection"/>
+                        <MenuItem Header="A l'affiche"/>
+                        <MenuItem Header="Statistiques"/>
+                        <MenuItem Header="Exporter"/>
+
+
+                    </Menu>
+                </ListBox>
+                <Image DockPanel.Dock="Bottom" Height="200" Width="200" Source="/Images\300x300.gif"/>
+            </DockPanel>
+            <TabControl Margin="200,0,0,0">
                 <TabControl.Background>
                     <SolidColorBrush Color="#FFF9F9F9" Opacity="0.2"/>
                 </TabControl.Background>
+
+
                 <TabItem Header="Cheese" Background="Beige">
                     <Grid Opacity="1">
                     </Grid>

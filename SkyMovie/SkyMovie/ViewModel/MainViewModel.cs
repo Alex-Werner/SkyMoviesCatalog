@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using System.Timers;
 
 namespace SkyMovie.ViewModel
-{
+{ 
+    
     public class MainViewModel : INotifyPropertyChanged
     {
         #region Property Changed Business
