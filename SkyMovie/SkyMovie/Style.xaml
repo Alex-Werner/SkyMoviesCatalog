@@ -101,13 +101,28 @@
                                 </Grid.Background>-->
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
-                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width="25" />
+                                    <ColumnDefinition Width="25" />
 
                                 </Grid.ColumnDefinitions>
                                 <Label Style="{DynamicResource MessageBoxTitle}" Content="{TemplateBinding Title}" />
+                                <Button x:Name="TitleMin"
+                                        Content="{DynamicResource MinButtonPath}"
+	                                        Grid.Column="1"
+                                        Padding="0,0,0,5"
+                                            Click="MinButton_Click"
+	                                        Style="{DynamicResource CloseButton}"
+	                                         />
+                                <Button x:Name="TitleMax"
+                                           Content="{DynamicResource MaxButtonPath}"
+	                                        Grid.Column="2"
+                                            Click="MaxButton_Click"
+	                                        Style="{DynamicResource CloseButton}"
+	                                         />
                                 <Button x:Name="TitleClose"
                                             Content="{DynamicResource CloseButtonPath}"
-	                                        Grid.Column="1"
+	                                        Grid.Column="3"
                                             Click="CloseButton_Click"
 	                                        Style="{DynamicResource CloseButton}"
 	                                        Padding="4" />
@@ -124,6 +139,21 @@
 
     <Path x:Key="CloseButtonPath"
 	          Data="M1,1 L7.4999998,7.334 M7.4999998,1 L0.99999997,7.334"
+	          Stretch="Fill"
+	          Stroke="White"
+	          StrokeEndLineCap="Round"
+	          StrokeStartLineCap="Round"
+	          StrokeThickness="2" />
+    <!-- TODO : TROP EN HAUT, ESSAYER DE REFAIRE MIN EN CENTRANT (PathMaker) -->
+    <Path x:Key="MinButtonPath"
+	          Data="M 297,222 L 277,222"
+	          Stretch="Fill"
+	          Stroke="White"
+	          StrokeEndLineCap="Round"
+	          StrokeStartLineCap="Round"
+	          StrokeThickness="2" />
+    <Path x:Key="MaxButtonPath"
+              Data="M 287,212 L 287,230 M297,222 L277,222"
 	          Stretch="Fill"
 	          Stroke="White"
 	          StrokeEndLineCap="Round"

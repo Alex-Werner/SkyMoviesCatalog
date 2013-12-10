@@ -104,23 +104,15 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\closehot_n.PNG" />
-    <Resource Include="Images\closepressed_n.PNG" />
-    <Resource Include="Images\close_n.PNG" />
     <Resource Include="Images\fonfile.ico" />
-    <Resource Include="Images\max.png" />
-    <Resource Include="Images\maxhot.png" />
-    <Resource Include="Images\maxhot_n.png" />
-    <Resource Include="Images\maxpressed.png" />
-    <Resource Include="Images\maxpressed_n.PNG" />
-    <Resource Include="Images\max_n.PNG" />
     <Resource Include="Images\min.png" />
     <Resource Include="Images\minhot.png" />
     <Resource Include="Images\minpressed.png" />
-    <Resource Include="Images\min_n.png" />
-    <Resource Include="Images\normal.PNG" />
-    <Resource Include="Images\normalhot.PNG" />
-    <Resource Include="Images\normalpress.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\favicon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

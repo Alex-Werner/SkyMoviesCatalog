@@ -21,5 +21,15 @@ namespace SkyMovie
             //TODO : LOGIQUE DE VERIFICATION (SYNCHRO BDD AVANT FERMETURE)
             App.Current.MainWindow.Close();
         }
+        private void MinButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.MainWindow.WindowState = WindowState.Minimized;
+        }
+        private void MaxButton_Click(object sender, RoutedEventArgs e)
+        {
+            //Comme on sait pas comment faire pour enlever la bordure dégeu lorsque resize n'est pas égale à none. Et bien l'user aura deux choix et pis voila !
+            App.Current.MainWindow.WindowState = WindowState.Maximized;
+        }
     }
+
 }
