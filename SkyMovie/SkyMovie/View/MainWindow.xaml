@@ -30,7 +30,7 @@
                 <ImageBrush ImageSource="/SkyMovie;component/Images/bg.jpg"/>
             </Grid.Background>
             <DockPanel HorizontalAlignment="Left" Height="750" Margin="0,0,0,-3" VerticalAlignment="Top" Width="200">
-                <TextBox Margin="3" DockPanel.Dock="Top" TextChanged="Search_TextChanged"/>
+                <TextBox Name="searchText" Margin="3" DockPanel.Dock="Top" TextChanged="Search_TextChanged"/>
                 <ListBox DockPanel.Dock="Top" Height="516" Width="200" Background="{StaticResource MenuBackgoundBrush}" BorderBrush="{StaticResource ResourceKey=MenuBorderBrush}" BorderThickness="1" Opacity="0.5" >
                     <ListBox x:Name="SkyMenu" ItemContainerStyle="{StaticResource SkyListBoxItem}" Width="190">
                         <!-- TODO : FIND HOW TO PUT A GLOBAL STYLE FOR MENUITEM (Style makes a null pointer exception :'( -->
@@ -40,6 +40,7 @@
                         <MenuItem Header="Statistiques" Click="SkyMenu_Statistiques_Click" Width="180px"/>
                         <MenuItem Header="Exporter" Click="SkyMenu_Exporter_Click" Width="180px" />
                     </ListBox>
+                    <Button Content="Ajouter à la collection" Width="75" x:Name="AddToCollectionBtn"/>
                 </ListBox>
                 <Image DockPanel.Dock="Bottom" Height="200" Width="200" Source="/Images\300x300.gif"/>
             </DockPanel>

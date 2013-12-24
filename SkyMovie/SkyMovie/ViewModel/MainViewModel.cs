@@ -1,16 +1,25 @@
 ﻿using System;
+using System.Configuration;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
+using TMDbLib.Client;
+using TMDbLib.Objects;
+using TMDbLib.Objects.General;
+using TMDbLib.Objects.Movies;
+using TMDbLib.Objects.Search;
+using TMDbLib.Utilities;
 
 namespace SkyMovie.ViewModel
 { 
    
     public class MainViewModel : INotifyPropertyChanged
     {
+        public static TMDbClient APIClient { get; set; }
+
         #region Property Changed Business
         public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName)
@@ -36,10 +45,10 @@ namespace SkyMovie.ViewModel
         }
         public String StatusMiniBarText
         {
-            get { return _statusMiniBarHours; }
+            get { return _statusMiniBarText; }
             set
             {
-                _statusMiniBarHours = value;
+                _statusMiniBarText = value;
                 RaisePropertyChanged("StatusMiniBarText");
             }
         }
@@ -54,6 +63,12 @@ namespace SkyMovie.ViewModel
             timer.Start(); // Start the timer 
             
             StatusMiniBarText = "Ready !";
+
+            APIClient = new TMDbClient(ConfigurationManager.AppSettings["ApiKey"]);
+            StatusMiniBarText = "Connected to TMDb";
+
+            
+            
         }
 
         void DisplayActualHours(object sender, EventArgs e)

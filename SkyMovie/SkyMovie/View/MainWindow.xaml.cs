@@ -1,8 +1,13 @@
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using SkyMovie.Model;
+using SkyMovie.ViewModel;
+using TMDbLib.Objects.General;
+using TMDbLib.Objects.Search;
 
 namespace SkyMovie.View
 {
@@ -16,12 +21,12 @@ namespace SkyMovie.View
         private ListFilm _listFilmWpf;
         private Statistiques _statistiquesmWpf;
         private Recherche _rechercheWpf;
-
+        private StatusBar myStatusBar;
         public MainWindow()
         {
             InitializeComponent();
             ImageSource source = this.Icon;
-            StatusBar myStatusBar = new StatusBar();
+            myStatusBar = new StatusBar();
             myStatusBar.StatusText = "test";
 
             _statistiquesmWpf = new Statistiques();
@@ -98,6 +103,36 @@ namespace SkyMovie.View
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
+            if(searchText.Text.Length>1)
+            {
+                SearchContainer<SearchMovie> results = MainViewModel.APIClient.SearchMovie(searchText.Text);
+                ObservableCollection<SearchData> SearchResult = new ObservableCollection<SearchData>();
+                foreach (SearchMovie result in results.Results)
+                {
+                    SearchResult.Add(new SearchData(result.Title, "...."));
+                }
+                _rechercheWpf.Search_Grid.ItemsSource = SearchResult;
+
+            }
+
+
+           
+            //SkyMovie.View.Recherche.
+            
+            /*var search = searchText.Text.ToString();
+            SearchContainer<SearchMovie> results = MainViewModel.APIClient.SearchMovie("Die Hard");
+            foreach (SearchMovie result in results.Results)
+            {
+                
+            }*/
+            //SearchContainer<SearchMovie> results = MainViewModel.APIClient.SearchMovie(searchText.Text.ToString());
+            //foreach (var name in results)
+            //{
+                //SearchResult.Add(new )
+            //}
+            //SearchResult
+            //searchText.Text;
+           
             RemoveChild();
             contentGrid.Children.Add((UserControl) _rechercheWpf);
         }
