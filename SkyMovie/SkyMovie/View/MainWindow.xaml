@@ -32,28 +32,14 @@
             <DockPanel HorizontalAlignment="Left" Height="750" Margin="0,0,0,-3" VerticalAlignment="Top" Width="200">
                 <TextBox Margin="3" DockPanel.Dock="Top" TextChanged="Search_TextChanged"/>
                 <ListBox DockPanel.Dock="Top" Height="516" Width="200" Background="{StaticResource MenuBackgoundBrush}" BorderBrush="{StaticResource ResourceKey=MenuBorderBrush}" BorderThickness="1" Opacity="0.5" >
-                    <ListBox Grid.Row="1" Name="SkyMenu" ItemContainerStyle="{StaticResource SkyListBoxItem}">
-                        <MenuItem Header="Ma collection" Click="SkyMenu_MaCollection_Click"/>
-                        <MenuItem Header="Decouvrir" Click="SkyMenu_Click" IsEnabled="False"/>
-                        <MenuItem Header="A l'affiche" Click="SkyMenu_Click" IsEnabled="False"/>
-                        <MenuItem Header="Statistiques" Click="SkyMenu_Statistiques_Click"/>
-                        <MenuItem Header="Exporter" Click="SkyMenu_Exporter_Click" />
+                    <ListBox x:Name="SkyMenu" ItemContainerStyle="{StaticResource SkyListBoxItem}" Width="190">
+                        <!-- TODO : FIND HOW TO PUT A GLOBAL STYLE FOR MENUITEM (Style makes a null pointer exception :'( -->
+                        <MenuItem Header="Ma collection" Click="SkyMenu_MaCollection_Click" Width="180px"/>
+                        <MenuItem Header="Decouvrir" Click="SkyMenu_Click" IsEnabled="False" Width="180px"/>
+                        <MenuItem Header="A l'affiche" Click="SkyMenu_Click" IsEnabled="False" Width="180px"/>
+                        <MenuItem Header="Statistiques" Click="SkyMenu_Statistiques_Click" Width="180px"/>
+                        <MenuItem Header="Exporter" Click="SkyMenu_Exporter_Click" Width="180px" />
                     </ListBox>
-
-                    <Menu Height="510" Width="183" Background="Transparent" >
-                        
-                        <Menu.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <VirtualizingStackPanel Orientation="Vertical" Width="183" Background="Transparent"/>
-  
-                            </ItemsPanelTemplate>
-                        </Menu.ItemsPanel>
-                        <MenuItem Header="Ma collection" />
-                        <MenuItem Header="Decouvrir"/>
-                        <MenuItem Header="A l'affiche"/>
-                        <MenuItem Header="Statistiques"/>
-                        <MenuItem Header="Exporter"/>
-                    </Menu>
                 </ListBox>
                 <Image DockPanel.Dock="Bottom" Height="200" Width="200" Source="/Images\300x300.gif"/>
             </DockPanel>

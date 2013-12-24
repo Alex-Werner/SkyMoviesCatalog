@@ -92,15 +92,24 @@
 	          StrokeStartLineCap="Round"
 	          StrokeThickness="2" />
     <!-- STYLE -->
+    <Style TargetType="{x:Type MenuItem}" x:Key="SkyListMenuItem">
+        <Setter Property="Width" Value="180px"/>
+        <Setter Property="Background" Value="Red"/>
+    </Style>
     <Style TargetType="{x:Type ListBoxItem}" x:Key="SkyListBoxItem">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        <Setter Property="Background" Value="#FC0C0C"/>
+        <Setter Property="Background" Value="CornflowerBlue"/>
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="Padding" Value="0"/>
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Width" Value="180px"/>
             </Trigger>
+           
         </Style.Triggers>
     </Style>
+    
     <Style TargetType="{x:Type Border}" x:Key = "MainBorder">
         <Setter Property="Background" Value="#B5CBEF" />
         <Setter Property="BorderBrush" Value="#395984" />
