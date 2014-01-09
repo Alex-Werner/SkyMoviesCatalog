@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Interface\IDisplayer.cs" />
+    <Compile Include="Model\Movie.cs" />
     <Compile Include="Model\StatusBar.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\StyleWindow.cs" />

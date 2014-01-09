@@ -33,7 +33,7 @@ namespace SkyMovie.ViewModel
 
         private String _statusMiniBarHours;
         private String _statusMiniBarText;
-
+        private bool _addToCollectedIsEnabled;
         public String StatusMiniBarHours
         {
             get { return _statusMiniBarHours; }
@@ -43,6 +43,17 @@ namespace SkyMovie.ViewModel
                 RaisePropertyChanged("StatusMiniBarHours");
             }
         }
+        
+        public bool EnableAddToCollectionBtn
+        {
+            get { return _addToCollectedIsEnabled; }
+            set
+            {
+                _addToCollectedIsEnabled = value;
+                RaisePropertyChanged("AddToCollectedIsEnabled");
+            }
+        }
+
         public String StatusMiniBarText
         {
             get { return _statusMiniBarText; }
@@ -63,13 +74,17 @@ namespace SkyMovie.ViewModel
             timer.Start(); // Start the timer 
             
             StatusMiniBarText = "Ready !";
+            EnableAddToCollectionBtn = false;
 
             APIClient = new TMDbClient(ConfigurationManager.AppSettings["ApiKey"]);
             StatusMiniBarText = "Connected to TMDb";
 
             
+
+            
             
         }
+
 
         void DisplayActualHours(object sender, EventArgs e)
         {

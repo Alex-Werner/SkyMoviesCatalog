@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SkyMovie.Interface;
+using SkyMovie.ViewModel;
 using TMDbLib.Objects.Movies;
 
 namespace SkyMovie.View
@@ -23,12 +25,12 @@ namespace SkyMovie.View
     public partial class Recherche : UserControl, IDisplayer
     {
         private ObservableCollection<SearchData> SearchResult { get; set; }
+        private DependencyObject _parent;
         
         public Recherche()
         {
-           
             InitializeComponent();
-          
+
         }
 
         private void DataGrid_Loaded(object sender, RoutedEventArgs e)
@@ -41,13 +43,36 @@ namespace SkyMovie.View
             grid.ItemsSource = SearchResult;*/
         }
 
+        
+
+      
+
+      
+
+        private void Search_Grid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            foreach (var selectedCell in e.AddedCells)
+            {
+                var selectedItem = selectedCell.Item;
+                var selectedCol = selectedCell.Column.DisplayIndex;
+                
+                var selectedId = ((SkyMovie.View.SearchData)(selectedItem)).Id;
+                var selectedName = ((SkyMovie.View.SearchData)(selectedItem)).Nom;
+
+                ((MainWindow) Application.Current.MainWindow).AddToCollectionBtn.IsEnabled = true;
+                
+            }
+        }
+
     }
     public class SearchData
     {
+        public int Id { get; set; }
         public string Nom { get; set; }
         public string Genre { get; set; }
-        public SearchData(string nom, string genre)
+        public SearchData(int id, string nom, string genre)
         {
+            this.Id = id;
             this.Nom = nom;
             this.Genre = genre;
         }

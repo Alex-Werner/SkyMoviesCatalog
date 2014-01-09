@@ -9,5 +9,6 @@ namespace SkyMovie.Interface
     interface IDisplayer
     {
         //Si jamais on veux implémenter quelques chose de systématique à toute les pages
+        
     }
 }

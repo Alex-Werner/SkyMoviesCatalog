@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using SkyMovie.Interface;
 using SkyMovie.Model;
 using SkyMovie.ViewModel;
 using TMDbLib.Objects.General;
@@ -15,13 +16,16 @@ namespace SkyMovie.View
     /// Logique d'interaction pour MainWindow.xaml
     /// </summary>
     /// 
-    
-    public partial class MainWindow : Window
+
+    public partial class MainWindow : Window, IDisplayer
     {
         private ListFilm _listFilmWpf;
         private Statistiques _statistiquesmWpf;
         private Recherche _rechercheWpf;
         private StatusBar myStatusBar;
+
+        ObservableCollection<SearchData> SearchResult = new ObservableCollection<SearchData>();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -36,14 +40,19 @@ namespace SkyMovie.View
             
             contentGrid.Children.Add((UserControl)_listFilmWpf);
 
+            AddToCollectionBtn.IsEnabled = false;
+
         }
+
+
+
+        
+
 
         /* Method used for dragging the title bar */
         bool inDrag = false;
         Point anchorPoint;
 
-
-        
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             anchorPoint = PointToScreen(e.GetPosition(this));
@@ -106,14 +115,13 @@ namespace SkyMovie.View
             if(searchText.Text.Length>1)
             {
                 SearchContainer<SearchMovie> results = MainViewModel.APIClient.SearchMovie(searchText.Text);
-                ObservableCollection<SearchData> SearchResult = new ObservableCollection<SearchData>();
                 foreach (SearchMovie result in results.Results)
                 {
-                    SearchResult.Add(new SearchData(result.Title, "...."));
+                    SearchResult.Add(new SearchData(result.Id,result.Title, "...."));
                 }
                 _rechercheWpf.Search_Grid.ItemsSource = SearchResult;
-
             }
+
 
 
            
@@ -136,5 +144,27 @@ namespace SkyMovie.View
             RemoveChild();
             contentGrid.Children.Add((UserControl) _rechercheWpf);
         }
+
+        private void AddToCollectionBtn_Click(object sender, RoutedEventArgs e)
+        {
+            
+            DataGridCellInfo cell = _rechercheWpf.Search_Grid.SelectedCells[0];
+            var col = cell.Column;
+            var content = col.GetCellContent(cell.Item);
+            var dt = content.DataContext;
+
+
+            var selectedName = ((SearchData) (dt)).Nom;
+            var selectedId = ((SearchData)(dt)).Id;
+            var selectedGenre = ((SearchData)(dt)).Genre;
+
+            Movie selectedMovie = new Movie(selectedId, selectedName, selectedGenre);
+
+            MessageBox.Show(selectedMovie.Nom+" a bien été ajouté.");
+            ((MainWindow)Application.Current.MainWindow).AddToCollectionBtn.IsEnabled = false;
+
+        }
+
+        
     }
 }

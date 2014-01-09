@@ -15,12 +15,14 @@
             VerticalContentAlignment="Center" 
             SelectionUnit="CellOrRowHeader" 
             HeadersVisibility="All" 
-            RowDetailsVisibilityMode="VisibleWhenSelected" Margin="-10,0,0,0">
+            RowDetailsVisibilityMode="VisibleWhenSelected" Margin="-10,0,0,0"
+            SelectedCellsChanged="Search_Grid_SelectedCellsChanged">
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridCell}">
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Path=Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Path=Nom}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Genre" Binding="{Binding Path=Genre}"></DataGridTextColumn>
                 <!--<DataGridTextColumn Header="Durée" Binding="{Binding Path=Duree}"></DataGridTextColumn>
