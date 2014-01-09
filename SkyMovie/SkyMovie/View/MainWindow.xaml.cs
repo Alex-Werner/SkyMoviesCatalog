@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -23,11 +25,19 @@ namespace SkyMovie.View
         private Statistiques _statistiquesmWpf;
         private Recherche _rechercheWpf;
         private StatusBar myStatusBar;
+        private Home _homeWpf;
 
         ObservableCollection<SearchData> SearchResult = new ObservableCollection<SearchData>();
+        ObservableCollection<Movie> MovieDB = new ObservableCollection<Movie>();
+        Persistance persistanceMovieDB = new Persistance("MovieDB.bin");
 
         public MainWindow()
         {
+            MovieDB = persistanceMovieDB.getPersistance("MovieDB/bin");
+
+           
+            
+
             InitializeComponent();
             ImageSource source = this.Icon;
             myStatusBar = new StatusBar();
@@ -37,11 +47,13 @@ namespace SkyMovie.View
 
             _listFilmWpf = new ListFilm();
             _rechercheWpf = new Recherche();
-            
-            contentGrid.Children.Add((UserControl)_listFilmWpf);
+            _homeWpf = new Home();
+
+            contentGrid.Children.Add((UserControl) _homeWpf);
+            //contentGrid.Children.Add((UserControl)_listFilmWpf);
 
             AddToCollectionBtn.IsEnabled = false;
-
+            DelFromCollectionBtn.IsEnabled = false;
         }
 
 
@@ -96,6 +108,9 @@ namespace SkyMovie.View
         private void SkyMenu_MaCollection_Click(object sender, RoutedEventArgs e)
         {
             RemoveChild();
+
+            _listFilmWpf.List_Grid.ItemsSource = MovieDB;
+            
             contentGrid.Children.Add((UserControl)_listFilmWpf);
 
         }
@@ -112,8 +127,10 @@ namespace SkyMovie.View
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
+            SearchResult.Clear();
             if(searchText.Text.Length>1)
             {
+
                 SearchContainer<SearchMovie> results = MainViewModel.APIClient.SearchMovie(searchText.Text);
                 foreach (SearchMovie result in results.Results)
                 {
@@ -161,7 +178,40 @@ namespace SkyMovie.View
             Movie selectedMovie = new Movie(selectedId, selectedName, selectedGenre);
 
             MessageBox.Show(selectedMovie.Nom+" a bien été ajouté.");
+            MovieDB.Add(selectedMovie);
+            persistanceMovieDB.setPersistance("MovieDB.bin",MovieDB);
             ((MainWindow)Application.Current.MainWindow).AddToCollectionBtn.IsEnabled = false;
+
+        }
+        private void DelFromCollectionBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            DataGridCellInfo cell = _listFilmWpf.List_Grid.SelectedCells[0];
+            var col = cell.Column;
+            var content = col.GetCellContent(cell.Item);
+            var dt = content.DataContext;
+
+
+            var selectedName = ((Movie)(dt)).Nom;
+            var selectedId = ((Movie)(dt)).Id;
+            var selectedGenre = ((Movie)(dt)).Genre;
+
+            Movie selectedMovie = new Movie(selectedId, selectedName, selectedGenre);
+            for (int i = MovieDB.Count - 1; i >= 0; i--)
+            {
+                var item = MovieDB[i];
+                if(item.Id==selectedMovie.Id)
+                {
+                    MovieDB.Remove(item);
+                }
+            }
+          
+            MessageBox.Show(selectedMovie.Nom + " a bien été retiré.");
+            _listFilmWpf.List_Grid.ItemsSource = MovieDB;
+
+            persistanceMovieDB.setPersistance("MovieDB.bin", MovieDB);
+
+            ((MainWindow)Application.Current.MainWindow).DelFromCollectionBtn.IsEnabled = false;
 
         }
 

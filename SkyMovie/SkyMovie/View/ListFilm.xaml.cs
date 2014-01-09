@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SkyMovie.Interface;
+using SkyMovie.Model;
 
 namespace SkyMovie.View
 {
@@ -24,6 +25,24 @@ namespace SkyMovie.View
         {
             InitializeComponent();
         }
+
+        private void List_Grid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+           
+            foreach (var selectedCell in e.AddedCells)
+            {
+                var selectedItem = selectedCell.Item;
+                var selectedCol = selectedCell.Column.DisplayIndex;
+                
+                var selectedId = ((Movie)(selectedItem)).Id;
+                var selectedName = ((Movie)(selectedItem)).Nom;
+
+                ((MainWindow) Application.Current.MainWindow).DelFromCollectionBtn.IsEnabled = true;
+                
+            }
+        
+        }
+        
 
     }
 }

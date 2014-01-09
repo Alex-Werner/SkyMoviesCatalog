@@ -41,6 +41,8 @@
                         <MenuItem Header="Exporter" Click="SkyMenu_Exporter_Click" Width="180px" />
                     </ListBox>
                     <Button Content="Ajouter a la collection" Width="180" x:Name="AddToCollectionBtn" IsEnabled="{Binding AddToCollectedIsEnabled}" Click="AddToCollectionBtn_Click"/>
+                    <Button Content="Supprimer de la collection" Width="180" x:Name="DelFromCollectionBtn" IsEnabled="{Binding DelFromCollectionBtnIsEnabled}" Click="DelFromCollectionBtn_Click"/>
+
                 </ListBox>
                 <Image DockPanel.Dock="Bottom" Height="200" Width="200" Source="/Images\300x300.gif"/>
             </DockPanel>

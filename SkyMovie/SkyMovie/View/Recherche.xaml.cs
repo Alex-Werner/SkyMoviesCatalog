@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SkyMovie.Interface;
+using SkyMovie.Model;
 using SkyMovie.ViewModel;
 using TMDbLib.Objects.Movies;
 
@@ -56,25 +57,13 @@ namespace SkyMovie.View
                 var selectedItem = selectedCell.Item;
                 var selectedCol = selectedCell.Column.DisplayIndex;
                 
-                var selectedId = ((SkyMovie.View.SearchData)(selectedItem)).Id;
-                var selectedName = ((SkyMovie.View.SearchData)(selectedItem)).Nom;
+                var selectedId = ((SearchData)(selectedItem)).Id;
+                var selectedName = ((SearchData)(selectedItem)).Nom;
 
                 ((MainWindow) Application.Current.MainWindow).AddToCollectionBtn.IsEnabled = true;
                 
             }
         }
 
-    }
-    public class SearchData
-    {
-        public int Id { get; set; }
-        public string Nom { get; set; }
-        public string Genre { get; set; }
-        public SearchData(int id, string nom, string genre)
-        {
-            this.Id = id;
-            this.Nom = nom;
-            this.Genre = genre;
-        }
     }
 }
