@@ -36,7 +36,10 @@
                 <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Path=Nom}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Genre" Binding="{Binding Path=Genre}"></DataGridTextColumn>
-              <!--  <DataGridTextColumn Header="Durée" Binding="{Binding Path=Duree}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Durée" Binding="{Binding Path=Duree}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Synopsis" Binding="{Binding Path=Overview}"></DataGridTextColumn>
+
+                <!--
                 <DataGridTextColumn Header="Année" Binding="{Binding Path=Annee}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Réalisateur" Binding="{Binding Path=Realisateur}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Acteurs principaux" Binding="{Binding Path=ActeursPrincipaux}"></DataGridTextColumn>

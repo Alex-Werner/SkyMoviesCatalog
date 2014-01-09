@@ -31,14 +31,25 @@ namespace SkyMovie.View
            
             foreach (var selectedCell in e.AddedCells)
             {
+                var main = ((MainWindow) Application.Current.MainWindow);
                 var selectedItem = selectedCell.Item;
                 var selectedCol = selectedCell.Column.DisplayIndex;
                 
                 var selectedId = ((Movie)(selectedItem)).Id;
                 var selectedName = ((Movie)(selectedItem)).Nom;
 
-                ((MainWindow) Application.Current.MainWindow).DelFromCollectionBtn.IsEnabled = true;
+                main.DelFromCollectionBtn.IsEnabled = true;
+
+                main.SelectedFilmName.Text = selectedName;
+                main.SelectedFilmOverview.Text = ((Movie)(selectedItem)).Overview;
+                var img_uri = "http://image.tmdb.org/t/p/w92" + ((Movie) (selectedItem)).PosterPath;
+                var img = new BitmapImage(new Uri(img_uri, UriKind.Absolute));
+                main.SelectedFilmPoster.Source = img;
+                    
+                    
+
                 
+
             }
         
         }

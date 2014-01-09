@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="SkyMovie.View.Home"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Width="800" Height="800" >
+    <Border BorderBrush="White" BorderThickness="1" Grid.Row="0" Margin="200" HorizontalAlignment="Left" Height="400"  VerticalAlignment="Top" Width="400">
+
+        <TextBlock Margin="1,1,1,1" HorizontalAlignment="Left" Height="400" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Width="400" Foreground="White" Background="Black" >
+            Features :
+            <LineBreak/>- Search into the IMBDB a movie and add it to your collection (Persistent)
+            <LineBreak/>- Remove a film from your library (persistent)
+            <LineBreak/>- Quickly visualize Title, Synopsis and image when select a film in Ma collection
+            
+            <LineBreak/>
+            <LineBreak/>
+
+            Change Log : 
+            <LineBreak/>
+            <LineBreak/>
+
+            Upcoming features : 
+        </TextBlock>
+    </Border>
+
+
+</UserControl>

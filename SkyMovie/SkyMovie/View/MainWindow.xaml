@@ -31,7 +31,7 @@
             </Grid.Background>
             <DockPanel HorizontalAlignment="Left" Height="750" Margin="0,0,0,-3" VerticalAlignment="Top" Width="200">
                 <TextBox Name="searchText" Margin="3" DockPanel.Dock="Top" TextChanged="Search_TextChanged" />
-                <ListBox DockPanel.Dock="Top" Height="516" Width="200" Background="{StaticResource MenuBackgoundBrush}" BorderBrush="{StaticResource ResourceKey=MenuBorderBrush}" BorderThickness="1" Opacity="0.5" >
+                <ListBox DockPanel.Dock="Top" Height="216" Width="200" Background="{StaticResource MenuBackgoundBrush}" BorderBrush="{StaticResource ResourceKey=MenuBorderBrush}" BorderThickness="1" Opacity="0.5" >
                     <ListBox x:Name="SkyMenu" ItemContainerStyle="{StaticResource SkyListBoxItem}" Width="190">
                         <!-- TODO : FIND HOW TO PUT A GLOBAL STYLE FOR MENUITEM (Style makes a null pointer exception :'( -->
                         <MenuItem Header="Ma collection" Click="SkyMenu_MaCollection_Click" Width="180px"/>
@@ -42,12 +42,14 @@
                     </ListBox>
                     <Button Content="Ajouter a la collection" Width="180" x:Name="AddToCollectionBtn" IsEnabled="{Binding AddToCollectedIsEnabled}" Click="AddToCollectionBtn_Click"/>
                     <Button Content="Supprimer de la collection" Width="180" x:Name="DelFromCollectionBtn" IsEnabled="{Binding DelFromCollectionBtnIsEnabled}" Click="DelFromCollectionBtn_Click"/>
-
                 </ListBox>
-                <Image DockPanel.Dock="Bottom" Height="200" Width="200" Source="/Images\300x300.gif"/>
+                <TextBlock Width="200" FontWeight="Bold"
+                	Height="387" DockPanel.Dock="Bottom" TextWrapping="WrapWithOverflow" x:Name="SelectedFilmOverview"/>
+                <Image Width="92" Height="138" x:Name="SelectedFilmPoster" Margin="0,0,0,0"/>
+                <TextBlock DockPanel.Dock="Right" x:Name="SelectedFilmName" Margin="0,0,0,0" TextWrapping="Wrap" Width="102"/>
             </DockPanel>
             <Grid Margin="200,0,0,0" Background="Transparent" x:Name="contentGrid">
-                
+
 
             </Grid>
 

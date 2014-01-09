@@ -10,7 +10,10 @@ using SkyMovie.Interface;
 using SkyMovie.Model;
 using SkyMovie.ViewModel;
 using TMDbLib.Objects.General;
+using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
+using Genre = SkyMovie.Model.Sk_Genre;
+using Movie = SkyMovie.Model.Movie;
 
 namespace SkyMovie.View
 {
@@ -33,7 +36,7 @@ namespace SkyMovie.View
 
         public MainWindow()
         {
-            MovieDB = persistanceMovieDB.getPersistance("MovieDB/bin");
+            MovieDB = persistanceMovieDB.getPersistance("MovieDB.bin");
 
            
             
@@ -134,29 +137,10 @@ namespace SkyMovie.View
                 SearchContainer<SearchMovie> results = MainViewModel.APIClient.SearchMovie(searchText.Text);
                 foreach (SearchMovie result in results.Results)
                 {
-                    SearchResult.Add(new SearchData(result.Id,result.Title, "...."));
-                }
+                    SearchResult.Add(new SearchData(result.Id,result.Title,"...."));
+               }
                 _rechercheWpf.Search_Grid.ItemsSource = SearchResult;
             }
-
-
-
-           
-            //SkyMovie.View.Recherche.
-            
-            /*var search = searchText.Text.ToString();
-            SearchContainer<SearchMovie> results = MainViewModel.APIClient.SearchMovie("Die Hard");
-            foreach (SearchMovie result in results.Results)
-            {
-                
-            }*/
-            //SearchContainer<SearchMovie> results = MainViewModel.APIClient.SearchMovie(searchText.Text.ToString());
-            //foreach (var name in results)
-            //{
-                //SearchResult.Add(new )
-            //}
-            //SearchResult
-            //searchText.Text;
            
             RemoveChild();
             contentGrid.Children.Add((UserControl) _rechercheWpf);
@@ -175,7 +159,11 @@ namespace SkyMovie.View
             var selectedId = ((SearchData)(dt)).Id;
             var selectedGenre = ((SearchData)(dt)).Genre;
 
-            Movie selectedMovie = new Movie(selectedId, selectedName, selectedGenre);
+
+            TMDbLib.Objects.Movies.Movie getMovie = MainViewModel.APIClient.GetMovie(selectedId, MovieMethods.Casts);
+            
+
+            Movie selectedMovie = new Movie(selectedId, selectedName, getMovie.Genres, getMovie.Runtime.ToString(), getMovie.Overview, getMovie.PosterPath.ToString());
 
             MessageBox.Show(selectedMovie.Nom+" a bien été ajouté.");
             MovieDB.Add(selectedMovie);
@@ -194,19 +182,18 @@ namespace SkyMovie.View
 
             var selectedName = ((Movie)(dt)).Nom;
             var selectedId = ((Movie)(dt)).Id;
-            var selectedGenre = ((Movie)(dt)).Genre;
+            
 
-            Movie selectedMovie = new Movie(selectedId, selectedName, selectedGenre);
             for (int i = MovieDB.Count - 1; i >= 0; i--)
             {
                 var item = MovieDB[i];
-                if(item.Id==selectedMovie.Id)
+                if (item.Id == selectedId)
                 {
                     MovieDB.Remove(item);
                 }
             }
-          
-            MessageBox.Show(selectedMovie.Nom + " a bien été retiré.");
+
+            MessageBox.Show(selectedName + " a bien été retiré.");
             _listFilmWpf.List_Grid.ItemsSource = MovieDB;
 
             persistanceMovieDB.setPersistance("MovieDB.bin", MovieDB);

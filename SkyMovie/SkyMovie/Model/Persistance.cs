@@ -33,6 +33,7 @@ namespace SkyMovie.Model
 
             }
         }
+       
         public void setPersistance(string _filename, ObservableCollection<Movie> _collection )
         {
             File.Delete(_filename);
