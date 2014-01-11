@@ -41,6 +41,9 @@ namespace SkyMovie.Model
             var serialiser = new BinaryFormatter();
             serialiser.Serialize(streamW, _collection);
             streamW.Close();
+            
+            Log.Write("On a ecrit dans le context"+_collection[0].Seen);
+
         }
         public ObservableCollection<Movie> getPersistance(string _filename)
         {

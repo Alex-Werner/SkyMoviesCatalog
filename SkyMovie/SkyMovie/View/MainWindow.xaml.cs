@@ -27,12 +27,13 @@ namespace SkyMovie.View
         private ListFilm _listFilmWpf;
         private Statistiques _statistiquesmWpf;
         private Recherche _rechercheWpf;
-        private StatusBar myStatusBar;
+        private ListLastOut _listLastOutWpf;
+        private static StatusBar myStatusBar;
         private Home _homeWpf;
 
         ObservableCollection<SearchData> SearchResult = new ObservableCollection<SearchData>();
-        ObservableCollection<Movie> MovieDB = new ObservableCollection<Movie>();
-        Persistance persistanceMovieDB = new Persistance("MovieDB.bin");
+        static ObservableCollection<Movie> MovieDB = new ObservableCollection<Movie>();
+        static Persistance persistanceMovieDB = new Persistance("MovieDB.bin");
 
         public MainWindow()
         {
@@ -43,12 +44,11 @@ namespace SkyMovie.View
 
             InitializeComponent();
             ImageSource source = this.Icon;
-            myStatusBar = new StatusBar();
-            myStatusBar.StatusText = "test";
 
             _statistiquesmWpf = new Statistiques();
 
             _listFilmWpf = new ListFilm();
+            _listLastOutWpf = new ListLastOut();
             _rechercheWpf = new Recherche();
             _homeWpf = new Home();
 
@@ -68,6 +68,10 @@ namespace SkyMovie.View
         bool inDrag = false;
         Point anchorPoint;
 
+        public static void saveContext()
+        {
+            persistanceMovieDB.setPersistance("MovieDB.bin", MovieDB);
+        }
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             anchorPoint = PointToScreen(e.GetPosition(this));
@@ -116,6 +120,19 @@ namespace SkyMovie.View
             
             contentGrid.Children.Add((UserControl)_listFilmWpf);
 
+        }
+        private void SkyMenu_DernieresSorties_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveChild();
+
+            SearchContainer<MovieResult> results = MainViewModel.APIClient.GetMovieList(MovieListType.Popular);
+            foreach (MovieResult result in results.Results)
+            {
+                SearchResult.Add(new SearchData(result.Id, result.Title, "Note:"+result.VoteAverage+" ("+result.VoteCount+")"));
+            }
+
+            _listLastOutWpf.Search_Grid.ItemsSource = SearchResult;
+            contentGrid.Children.Add((UserControl) _listLastOutWpf);
         }
         private void SkyMenu_Exporter_Click(object sender, RoutedEventArgs e)
         {
@@ -167,7 +184,7 @@ namespace SkyMovie.View
 
             MessageBox.Show(selectedMovie.Nom+" a bien été ajouté.");
             MovieDB.Add(selectedMovie);
-            persistanceMovieDB.setPersistance("MovieDB.bin",MovieDB);
+            saveContext();
             ((MainWindow)Application.Current.MainWindow).AddToCollectionBtn.IsEnabled = false;
 
         }
@@ -196,7 +213,7 @@ namespace SkyMovie.View
             MessageBox.Show(selectedName + " a bien été retiré.");
             _listFilmWpf.List_Grid.ItemsSource = MovieDB;
 
-            persistanceMovieDB.setPersistance("MovieDB.bin", MovieDB);
+            saveContext();
 
             ((MainWindow)Application.Current.MainWindow).DelFromCollectionBtn.IsEnabled = false;
 

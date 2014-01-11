@@ -36,7 +36,7 @@
                         <!-- TODO : FIND HOW TO PUT A GLOBAL STYLE FOR MENUITEM (Style makes a null pointer exception :'( -->
                         <MenuItem Header="Ma collection" Click="SkyMenu_MaCollection_Click" Width="180px"/>
                         <MenuItem Header="Decouvrir" Click="SkyMenu_Click" IsEnabled="False" Width="180px"/>
-                        <MenuItem Header="A l'affiche" Click="SkyMenu_Click" IsEnabled="False" Width="180px"/>
+                        <MenuItem Header="Dernieres sorties" Click="SkyMenu_DernieresSorties_Click" Width="180px"/>
                         <MenuItem Header="Statistiques" Click="SkyMenu_Statistiques_Click" Width="180px"/>
                         <MenuItem Header="Exporter" Click="SkyMenu_Exporter_Click" Width="180px" />
                     </ListBox>

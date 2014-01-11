@@ -63,6 +63,8 @@ namespace SkyMovie.ViewModel
                 RaisePropertyChanged("StatusMiniBarText");
             }
         }
+
+       
         #endregion
 
         public MainViewModel()
@@ -84,7 +86,6 @@ namespace SkyMovie.ViewModel
             
             
         }
-
 
         void DisplayActualHours(object sender, EventArgs e)
         {

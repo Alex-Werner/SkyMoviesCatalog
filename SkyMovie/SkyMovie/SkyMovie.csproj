@@ -61,6 +61,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Interface\IDisplayer.cs" />
+    <Compile Include="Model\Log.cs" />
     <Compile Include="Model\Sk_Genre.cs" />
     <Compile Include="Model\Movie.cs" />
     <Compile Include="Model\Persistance.cs" />
@@ -70,6 +71,9 @@
     <Compile Include="ViewModel\StyleWindow.cs" />
     <Compile Include="View\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ListLastOut.xaml.cs">
+      <DependentUpon>ListLastOut.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Recherche.xaml.cs">
       <DependentUpon>Recherche.xaml</DependentUpon>
@@ -81,6 +85,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="View\Home.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ListLastOut.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

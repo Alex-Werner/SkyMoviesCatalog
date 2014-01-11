@@ -28,12 +28,12 @@ namespace SkyMovie.View
 
         private void List_Grid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
-           
+            int selectedCol=-1;
             foreach (var selectedCell in e.AddedCells)
             {
                 var main = ((MainWindow) Application.Current.MainWindow);
                 var selectedItem = selectedCell.Item;
-                var selectedCol = selectedCell.Column.DisplayIndex;
+                 selectedCol = selectedCell.Column.DisplayIndex;
                 
                 var selectedId = ((Movie)(selectedItem)).Id;
                 var selectedName = ((Movie)(selectedItem)).Nom;
@@ -46,11 +46,12 @@ namespace SkyMovie.View
                 var img = new BitmapImage(new Uri(img_uri, UriKind.Absolute));
                 main.SelectedFilmPoster.Source = img;
                     
-                    
-
-                
-
             }
+           
+                MainWindow.saveContext();
+
+            
+            
         
         }
         

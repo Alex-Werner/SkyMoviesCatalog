@@ -12,6 +12,7 @@
             CanUserResizeRows="False" 
             Style="{DynamicResource DataGridDemoStyle}"
             ItemsSource="{Binding MovieDB}"
+            
             VerticalAlignment="Stretch"
             VerticalContentAlignment="Center" 
             SelectionUnit="CellOrRowHeader" 
@@ -30,9 +31,14 @@
                         <Image Source="{Binding Path=Affiche}"></Image>
                         <TextBlock Width="500"  Text="{Binding Path=Synopsis}" TextWrapping="Wrap" Foreground="White"></TextBlock>
                     </StackPanel>
+
+                    
                 </DataTemplate>
             </DataGrid.RowDetailsTemplate>
+
             <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="Seen" Binding="{Binding Path=Seen,Mode=TwoWay}" >
+                </DataGridCheckBoxColumn>
                 <DataGridTextColumn Header="Id" Binding="{Binding Path=Id}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Nom" Binding="{Binding Path=Nom}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Genre" Binding="{Binding Path=Genre}"></DataGridTextColumn>
