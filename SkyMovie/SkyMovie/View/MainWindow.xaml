@@ -31,13 +31,19 @@
             </Grid.Background>
             <DockPanel HorizontalAlignment="Left" Height="750" Margin="0,0,0,-3" VerticalAlignment="Top" Width="200">
                 <TextBox Name="searchText" Margin="3" DockPanel.Dock="Top" TextChanged="Search_TextChanged" />
-                <ListBox DockPanel.Dock="Top" Height="226" Width="200" Background="{StaticResource MenuBackgoundBrush}" BorderBrush="{StaticResource ResourceKey=MenuBorderBrush}" BorderThickness="1" Opacity="0.5" >
-                    <ListBox x:Name="SkyMenu" ItemContainerStyle="{StaticResource SkyListBoxItem}" Width="190">
+                <ListBox DockPanel.Dock="Top" Height="317" Width="200" Background="{StaticResource MenuBackgoundBrush}" BorderBrush="{StaticResource ResourceKey=MenuBorderBrush}" BorderThickness="1" Opacity="0.5" >
+                    <ListBox x:Name="SkyMenu" ItemContainerStyle="{StaticResource SkyListBoxItem}" Width="190" Height="244">
                         <!-- TODO : FIND HOW TO PUT A GLOBAL STYLE FOR MENUITEM (Style makes a null pointer exception :'( -->
                         <MenuItem Header="Ma collection" Click="SkyMenu_MaCollection_Click" Width="180px"/>
-                        <MenuItem Header="Decouvrir" Click="SkyMenu_Click" IsEnabled="False" Width="180px"/>
+                        <MenuItem Header="Ma WishList" Click="SkyMenu_MaWishList_Click" Width="180px"/>
+
+                        <MenuItem Header="Decouvrir" Click="SkyMenu_Discover_Click" IsEnabled="False" Width="180px"/>
+                        <MenuItem Header="Top Genres" Click="SkyMenu_TopGender_Click" IsEnabled="False" Width="180px"/>
+
                         <MenuItem Header="Dernieres sorties" Click="SkyMenu_DernieresSorties_Click" Width="180px"/>
                         <MenuItem Header="Top Notes" Click="SkyMenu_TopRated_Click" Width="180px"/>
+                        <MenuItem Header="Populaires" Click="SkyMenu_Popular_Click" Width="180px"/>
+
                         <MenuItem Header="Statistiques" Click="SkyMenu_Statistiques_Click" Width="180px"/>
                         <MenuItem Header="Exporter" Click="SkyMenu_Exporter_Click" Width="180px" />
                     </ListBox>
@@ -45,9 +51,9 @@
                     <Button Content="Supprimer de la collection" Width="180" x:Name="DelFromCollectionBtn" IsEnabled="{Binding DelFromCollectionBtnIsEnabled}" Click="DelFromCollectionBtn_Click"/>
                 </ListBox>
                 <TextBlock Width="200" FontWeight="Bold"
-                	Height="387" DockPanel.Dock="Bottom" TextWrapping="WrapWithOverflow" x:Name="SelectedFilmOverview"/>
+                	Height="265" DockPanel.Dock="Bottom" TextWrapping="WrapWithOverflow" x:Name="SelectedFilmOverview"/>
                 <Image Width="92" Height="138" x:Name="SelectedFilmPoster" Margin="0,0,0,0"/>
-                <TextBlock DockPanel.Dock="Right" x:Name="SelectedFilmName" Margin="0,0,0,0" TextWrapping="Wrap" Width="102"/>
+                <TextBlock DockPanel.Dock="Right" x:Name="SelectedFilmName" Margin="0,0,0,0" TextWrapping="WrapWithOverflow" Width="102"/>
             </DockPanel>
             <Grid Margin="200,0,0,0" Background="Transparent" x:Name="contentGrid">
 

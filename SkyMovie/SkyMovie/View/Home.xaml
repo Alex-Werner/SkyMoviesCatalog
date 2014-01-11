@@ -8,6 +8,7 @@
             <LineBreak/>- Search into the IMBDB a movie and add it to your collection (Persistent)
             <LineBreak/>- Remove a film from your library (persistent)
             <LineBreak/>- Quickly visualize Title, Synopsis and image when select a film in Ma collection
+            <LineBreak/>- Quickly discover new films like Overall Top Rated, and Last Out
             
             <LineBreak/>
             <LineBreak/>
@@ -17,6 +18,7 @@
             <LineBreak/>
 
             Upcoming features : 
+            <LineBreak/> - Set option/settings (Like nbPage displayed on recherche things)
         </TextBlock>
     </Border>
 

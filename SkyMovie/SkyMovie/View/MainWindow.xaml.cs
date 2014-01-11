@@ -29,6 +29,7 @@ namespace SkyMovie.View
         private Recherche _rechercheWpf;
         private ListLastOut _listLastOutWpf;
         private ListTopRated _listTopRatedWpf;
+        private ListPopular _listPopularWpf;
         private static StatusBar myStatusBar;
         private Home _homeWpf;
 
@@ -51,7 +52,7 @@ namespace SkyMovie.View
             _listFilmWpf = new ListFilm();
             _listLastOutWpf = new ListLastOut();
             _listTopRatedWpf = new ListTopRated();
-            
+            _listPopularWpf = new ListPopular();
             _rechercheWpf = new Recherche();
             _homeWpf = new Home();
 
@@ -124,10 +125,23 @@ namespace SkyMovie.View
             contentGrid.Children.Add((UserControl)_listFilmWpf);
 
         }
+        private void SkyMenu_MaWishList_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveChild();
+        }
+        private void SkyMenu_Discover_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveChild();
+        }
+        private void SkyMenu_TopGender_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveChild();
+        }
         private void SkyMenu_DernieresSorties_Click(object sender, RoutedEventArgs e)
         {
             RemoveChild();
-
+            SearchResult.Clear();
+            
             var nbPageMax = 3;
 
             for(var nbPage=1; nbPage<=nbPageMax;nbPage++)
@@ -147,6 +161,8 @@ namespace SkyMovie.View
         private void SkyMenu_TopRated_Click(object sender, RoutedEventArgs e)
         {
             RemoveChild();
+            SearchResult.Clear();
+
             var nbPageMax = 3;
 
             for (var nbPage = 1; nbPage <= nbPageMax; nbPage++)
@@ -163,6 +179,24 @@ namespace SkyMovie.View
             contentGrid.Children.Add((UserControl)_listTopRatedWpf);
 
         }
+        private void SkyMenu_Popular_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveChild();
+            SearchResult.Clear();
+
+            var nbPageMax = 3;
+            for (var nbPage = 1; nbPage<=nbPageMax; nbPage++)
+            {
+                SearchContainer<MovieResult> results = MainViewModel.APIClient.GetMovieList(MovieListType.Popular, nbPage);
+                foreach (MovieResult result in results.Results)
+                {
+                    SearchResult.Add(new SearchData(result.Id, result.Title,
+                                                    "Note:" + result.VoteAverage + " (" + result.VoteCount + ")"));
+                }   
+            }
+            _listPopularWpf.Search_Grid.ItemsSource = SearchResult;
+            contentGrid.Children.Add((UserControl) _listPopularWpf);
+        }
         private void SkyMenu_Exporter_Click(object sender, RoutedEventArgs e)
         {
             RemoveChild();
@@ -177,6 +211,7 @@ namespace SkyMovie.View
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
             SearchResult.Clear();
+
             if(searchText.Text.Length>1)
             {
 
