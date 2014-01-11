@@ -28,6 +28,7 @@ namespace SkyMovie.View
         private Statistiques _statistiquesmWpf;
         private Recherche _rechercheWpf;
         private ListLastOut _listLastOutWpf;
+        private ListTopRated _listTopRatedWpf;
         private static StatusBar myStatusBar;
         private Home _homeWpf;
 
@@ -49,6 +50,8 @@ namespace SkyMovie.View
 
             _listFilmWpf = new ListFilm();
             _listLastOutWpf = new ListLastOut();
+            _listTopRatedWpf = new ListTopRated();
+            
             _rechercheWpf = new Recherche();
             _homeWpf = new Home();
 
@@ -125,14 +128,40 @@ namespace SkyMovie.View
         {
             RemoveChild();
 
-            SearchContainer<MovieResult> results = MainViewModel.APIClient.GetMovieList(MovieListType.Popular);
-            foreach (MovieResult result in results.Results)
+            var nbPageMax = 3;
+
+            for(var nbPage=1; nbPage<=nbPageMax;nbPage++)
             {
-                SearchResult.Add(new SearchData(result.Id, result.Title, "Note:"+result.VoteAverage+" ("+result.VoteCount+")"));
+
+                SearchContainer<MovieResult> results = MainViewModel.APIClient.GetMovieList(MovieListType.Popular, nbPage);
+
+                foreach (MovieResult result in results.Results)
+                {
+                    SearchResult.Add(new SearchData(result.Id, result.Title, "Note:" + result.VoteAverage + " (" + result.VoteCount + ")"));
+                }
             }
 
             _listLastOutWpf.Search_Grid.ItemsSource = SearchResult;
             contentGrid.Children.Add((UserControl) _listLastOutWpf);
+        }
+        private void SkyMenu_TopRated_Click(object sender, RoutedEventArgs e)
+        {
+            RemoveChild();
+            var nbPageMax = 3;
+
+            for (var nbPage = 1; nbPage <= nbPageMax; nbPage++)
+            {
+
+                SearchContainer<MovieResult> results = MainViewModel.APIClient.GetMovieList(MovieListType.TopRated,nbPage);
+                foreach (MovieResult result in results.Results)
+                {
+                    SearchResult.Add(new SearchData(result.Id, result.Title,
+                                                    "Note:" + result.VoteAverage + " (" + result.VoteCount + ")"));
+                }
+            }
+            _listTopRatedWpf.Search_Grid.ItemsSource = SearchResult;
+            contentGrid.Children.Add((UserControl)_listTopRatedWpf);
+
         }
         private void SkyMenu_Exporter_Click(object sender, RoutedEventArgs e)
         {

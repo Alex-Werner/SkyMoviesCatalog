@@ -31,12 +31,13 @@
             </Grid.Background>
             <DockPanel HorizontalAlignment="Left" Height="750" Margin="0,0,0,-3" VerticalAlignment="Top" Width="200">
                 <TextBox Name="searchText" Margin="3" DockPanel.Dock="Top" TextChanged="Search_TextChanged" />
-                <ListBox DockPanel.Dock="Top" Height="216" Width="200" Background="{StaticResource MenuBackgoundBrush}" BorderBrush="{StaticResource ResourceKey=MenuBorderBrush}" BorderThickness="1" Opacity="0.5" >
+                <ListBox DockPanel.Dock="Top" Height="226" Width="200" Background="{StaticResource MenuBackgoundBrush}" BorderBrush="{StaticResource ResourceKey=MenuBorderBrush}" BorderThickness="1" Opacity="0.5" >
                     <ListBox x:Name="SkyMenu" ItemContainerStyle="{StaticResource SkyListBoxItem}" Width="190">
                         <!-- TODO : FIND HOW TO PUT A GLOBAL STYLE FOR MENUITEM (Style makes a null pointer exception :'( -->
                         <MenuItem Header="Ma collection" Click="SkyMenu_MaCollection_Click" Width="180px"/>
                         <MenuItem Header="Decouvrir" Click="SkyMenu_Click" IsEnabled="False" Width="180px"/>
                         <MenuItem Header="Dernieres sorties" Click="SkyMenu_DernieresSorties_Click" Width="180px"/>
+                        <MenuItem Header="Top Notes" Click="SkyMenu_TopRated_Click" Width="180px"/>
                         <MenuItem Header="Statistiques" Click="SkyMenu_Statistiques_Click" Width="180px"/>
                         <MenuItem Header="Exporter" Click="SkyMenu_Exporter_Click" Width="180px" />
                     </ListBox>

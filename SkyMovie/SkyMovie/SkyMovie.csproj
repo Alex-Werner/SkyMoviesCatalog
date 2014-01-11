@@ -75,6 +75,9 @@
     <Compile Include="View\ListLastOut.xaml.cs">
       <DependentUpon>ListLastOut.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ListTopRated.xaml.cs">
+      <DependentUpon>ListTopRated.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\Recherche.xaml.cs">
       <DependentUpon>Recherche.xaml</DependentUpon>
     </Compile>
@@ -89,6 +92,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\ListLastOut.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ListTopRated.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
