@@ -29,6 +29,7 @@ namespace SkyMovie.View
 
     public partial class MainWindow : Window, IDisplayer
     {
+        //All WPF frame
         private ListFilm _listFilmWpf;
         private Statistiques _statistiquesmWpf;
         private Recherche _rechercheWpf;
@@ -36,12 +37,10 @@ namespace SkyMovie.View
         private ListTopRated _listTopRatedWpf;
         private ListPopular _listPopularWpf;
         private WishList _wishListWpf;
-        private static StatusBar myStatusBar;
         private Home _homeWpf;
 
+        //Utils object
         private Export _exportToExcel;
-
-        
         ObservableCollection<SearchData> SearchResult = new ObservableCollection<SearchData>();
         static ObservableCollection<Movie> MovieDB = new ObservableCollection<Movie>();
         static ObservableCollection<Movie> WishedMovieDB = new ObservableCollection<Movie>(); 
@@ -51,17 +50,13 @@ namespace SkyMovie.View
 
         public MainWindow()
         {
+            //Call DataBase
             MovieDB = persistanceMovieDB.getPersistance("MovieDB.bin");
             WishedMovieDB = persistanceWishedMovieDB.getPersistance("WishedMovieDB.bin");
            
-            
-
             InitializeComponent();
-            ImageSource source = this.Icon;
-
 
             _statistiquesmWpf = new Statistiques();
-
             _listFilmWpf = new ListFilm();
             _listLastOutWpf = new ListLastOut();
             _listTopRatedWpf = new ListTopRated();
@@ -70,28 +65,30 @@ namespace SkyMovie.View
             _rechercheWpf = new Recherche();
             _homeWpf = new Home();
 
+            //Set Home as default page
             contentGrid.Children.Add((UserControl) _homeWpf);
 
+            //We call our button manually in function of user input and movement/click. So we disable all. 
             AddToCollectionBtn.IsEnabled = false;
             DelFromCollectionBtn.IsEnabled = false;
             AddToWishlistBtn.IsEnabled = false;
             DelFromWishlistBtn.IsEnabled = false;
         }
 
-
-
-        
-
-
-        /* Method used for dragging the title bar */
+        // Method used for dragging the title bar
         bool inDrag = false;
         Point anchorPoint;
 
+        /// <summary>
+        /// Save the two database in the drive
+        /// </summary>
         public static void saveContext()
         {
             persistanceMovieDB.setPersistance("MovieDB.bin", MovieDB);
             persistanceWishedMovieDB.setPersistance("WishedMovieDB.bin", WishedMovieDB);
         }
+
+        
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
             anchorPoint = PointToScreen(e.GetPosition(this));
@@ -122,6 +119,7 @@ namespace SkyMovie.View
             }
         }
 
+        //Used to remove UserControl (right window)
         public void RemoveChild()
         {
             contentGrid.Children.Clear();

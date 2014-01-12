@@ -43,13 +43,6 @@ namespace SkyMovie.View
             var grid = sender as DataGrid;
             grid.ItemsSource = SearchResult;*/
         }
-
-        
-
-      
-
-      
-
         private void Search_Grid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
         {
             foreach (var selectedCell in e.AddedCells)
