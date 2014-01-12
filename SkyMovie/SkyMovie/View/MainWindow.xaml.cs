@@ -12,9 +12,14 @@ using SkyMovie.ViewModel;
 using TMDbLib.Objects.General;
 using TMDbLib.Objects.Movies;
 using TMDbLib.Objects.Search;
+using Application = System.Windows.Application;
 using Genre = SkyMovie.Model.Sk_Genre;
+using MessageBox = System.Windows.MessageBox;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
 using Movie = SkyMovie.Model.Movie;
-
+using StatusBar = SkyMovie.Model.StatusBar;
+using UserControl = System.Windows.Controls.UserControl;
+using Export = SkyMovie.Model.Export.ExportToExcel;
 namespace SkyMovie.View
 {
     /// <summary>
@@ -30,22 +35,30 @@ namespace SkyMovie.View
         private ListLastOut _listLastOutWpf;
         private ListTopRated _listTopRatedWpf;
         private ListPopular _listPopularWpf;
+        private WishList _wishListWpf;
         private static StatusBar myStatusBar;
         private Home _homeWpf;
 
+        private Export _exportToExcel;
+
+        
         ObservableCollection<SearchData> SearchResult = new ObservableCollection<SearchData>();
         static ObservableCollection<Movie> MovieDB = new ObservableCollection<Movie>();
+        static ObservableCollection<Movie> WishedMovieDB = new ObservableCollection<Movie>(); 
         static Persistance persistanceMovieDB = new Persistance("MovieDB.bin");
+        static Persistance persistanceWishedMovieDB = new Persistance("WishedMovieDB.bin");
+
 
         public MainWindow()
         {
             MovieDB = persistanceMovieDB.getPersistance("MovieDB.bin");
-
+            WishedMovieDB = persistanceWishedMovieDB.getPersistance("WishedMovieDB.bin");
            
             
 
             InitializeComponent();
             ImageSource source = this.Icon;
+
 
             _statistiquesmWpf = new Statistiques();
 
@@ -53,14 +66,16 @@ namespace SkyMovie.View
             _listLastOutWpf = new ListLastOut();
             _listTopRatedWpf = new ListTopRated();
             _listPopularWpf = new ListPopular();
+            _wishListWpf = new WishList();
             _rechercheWpf = new Recherche();
             _homeWpf = new Home();
 
             contentGrid.Children.Add((UserControl) _homeWpf);
-            //contentGrid.Children.Add((UserControl)_listFilmWpf);
 
             AddToCollectionBtn.IsEnabled = false;
             DelFromCollectionBtn.IsEnabled = false;
+            AddToWishlistBtn.IsEnabled = false;
+            DelFromWishlistBtn.IsEnabled = false;
         }
 
 
@@ -75,6 +90,7 @@ namespace SkyMovie.View
         public static void saveContext()
         {
             persistanceMovieDB.setPersistance("MovieDB.bin", MovieDB);
+            persistanceWishedMovieDB.setPersistance("WishedMovieDB.bin", WishedMovieDB);
         }
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
         {
@@ -110,12 +126,7 @@ namespace SkyMovie.View
         {
             contentGrid.Children.Clear();
         }
-        private void SkyMenu_Click(object sender, RoutedEventArgs e)
-        {
-
-           // SkyMenu.SelectedItem = SkyMenu.Items.CurrentItem;
-        }
-
+        #region MenuButtons
         private void SkyMenu_MaCollection_Click(object sender, RoutedEventArgs e)
         {
             RemoveChild();
@@ -128,6 +139,11 @@ namespace SkyMovie.View
         private void SkyMenu_MaWishList_Click(object sender, RoutedEventArgs e)
         {
             RemoveChild();
+
+            _wishListWpf.List_Grid.ItemsSource = WishedMovieDB;
+
+            contentGrid.Children.Add((UserControl)_wishListWpf);
+
         }
         private void SkyMenu_Discover_Click(object sender, RoutedEventArgs e)
         {
@@ -148,7 +164,6 @@ namespace SkyMovie.View
             {
 
                 SearchContainer<MovieResult> results = MainViewModel.APIClient.GetMovieList(MovieListType.Popular, nbPage);
-
                 foreach (MovieResult result in results.Results)
                 {
                     SearchResult.Add(new SearchData(result.Id, result.Title, "Note:" + result.VoteAverage + " (" + result.VoteCount + ")"));
@@ -199,11 +214,13 @@ namespace SkyMovie.View
         }
         private void SkyMenu_Exporter_Click(object sender, RoutedEventArgs e)
         {
-            RemoveChild();
+            _exportToExcel = new Export();
+            _exportToExcel.ExportDbToFile("MyMovieDb.xlsx", MovieDB, WishedMovieDB);
         }
         private void SkyMenu_Statistiques_Click(object sender, RoutedEventArgs e)
         {
             RemoveChild();
+            _statistiquesmWpf.DoSoMuchStats(MovieDB, WishedMovieDB);
             contentGrid.Children.Add((UserControl)_statistiquesmWpf);
 
         }
@@ -226,11 +243,39 @@ namespace SkyMovie.View
             RemoveChild();
             contentGrid.Children.Add((UserControl) _rechercheWpf);
         }
+        #endregion
 
+        #region Add/Del Button
         private void AddToCollectionBtn_Click(object sender, RoutedEventArgs e)
         {
+
+
+            DataGridCellInfo cell;
+            if (contentGrid.Children[0].ToString() == "SkyMovie.View.ListLast.Out")
+            {
+                cell = _listLastOutWpf.Search_Grid.SelectedCells[0];
+
+            }
+
+
+            else if (contentGrid.Children[0].ToString() == "SkyMovie.View.ListPopular")
+            {
+                cell = _listPopularWpf.Search_Grid.SelectedCells[0];
+
+            }
+
+
+            else if (contentGrid.Children[0].ToString() == "SkyMovie.View.ListTopRated")
+            {
+                cell = _listTopRatedWpf.Search_Grid.SelectedCells[0];
+
+            }
+            else//Search
+            {
+                cell = _rechercheWpf.Search_Grid.SelectedCells[0];
+
+            }
             
-            DataGridCellInfo cell = _rechercheWpf.Search_Grid.SelectedCells[0];
             var col = cell.Column;
             var content = col.GetCellContent(cell.Item);
             var dt = content.DataContext;
@@ -283,6 +328,106 @@ namespace SkyMovie.View
 
         }
 
-        
+        private void AddToWishListBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DataGridCellInfo cell;
+            if(contentGrid.Children[0].ToString() == "SkyMovie.View.ListLast.Out")
+            {
+                cell = _listLastOutWpf.Search_Grid.SelectedCells[0];
+
+            }
+
+
+            else if (contentGrid.Children[0].ToString() == "SkyMovie.View.ListPopular")
+            {
+                cell = _listPopularWpf.Search_Grid.SelectedCells[0];
+
+            }
+
+
+            else if (contentGrid.Children[0].ToString() == "SkyMovie.View.ListTopRated")
+            {
+                cell = _listTopRatedWpf.Search_Grid.SelectedCells[0];
+
+            }
+            else//Search
+            {
+                cell = _rechercheWpf.Search_Grid.SelectedCells[0];
+
+            }
+
+            var col = cell.Column;
+            var content = col.GetCellContent(cell.Item);
+            var dt = content.DataContext;
+
+            var selectedName = ((SearchData)(dt)).Nom;
+            var selectedId = ((SearchData)(dt)).Id;
+            var selectedGenre = ((SearchData)(dt)).Genre;
+
+            TMDbLib.Objects.Movies.Movie getMovie = MainViewModel.APIClient.GetMovie(selectedId, MovieMethods.Casts);
+
+            Movie selectedMovie = new Movie(selectedId, selectedName, getMovie.Genres, getMovie.Runtime.ToString(), getMovie.Overview, getMovie.PosterPath.ToString());
+
+            MessageBox.Show(selectedMovie.Nom + " a bien été ajouté.");
+
+            WishedMovieDB.Add(selectedMovie);
+            saveContext();
+
+            ((MainWindow)Application.Current.MainWindow).AddToCollectionBtn.IsEnabled = false;
+            ((MainWindow)Application.Current.MainWindow).AddToWishlistBtn.IsEnabled = false;
+
+
+
+        }
+        /// <summary>
+        /// Delete a node from WishList. Trigger a window asking us if we want to del it for an add in our film list or just delete
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DelFromWishListBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+            DataGridCellInfo cell = _wishListWpf.List_Grid.SelectedCells[0];
+            var col = cell.Column;
+            var content = col.GetCellContent(cell.Item);
+            if (content != null)
+            {
+                var dt = content.DataContext;
+
+
+                var selectedName = ((Movie)(dt)).Nom;
+                var selectedId = ((Movie)(dt)).Id;
+
+                WishedMovieDB = persistanceWishedMovieDB.getPersistance("WishedMovieDB.bin");
+
+
+                MessageBoxResult result = MessageBox.Show("Voulez-vous en plus de la suppression de votre wishlist, ajouter ce film à votre liste de film acquis ?", "Ajouter à votre Wishlist ?", MessageBoxButton.YesNo);
+               
+                for (int i = WishedMovieDB.Count - 1; i >= 0; i--)
+                {
+                    var item = WishedMovieDB[i];
+                    if (item.Id == selectedId)
+                    {
+                        if (result == MessageBoxResult.Yes)
+                        {
+                            MovieDB.Add(item);
+                        }
+
+                        WishedMovieDB.Remove(item);
+                    }
+                }
+
+                MessageBox.Show(selectedName + " a bien été retiré.");
+            }
+            _wishListWpf.List_Grid.ItemsSource = MovieDB;
+
+            saveContext();
+
+            ((MainWindow)Application.Current.MainWindow).DelFromWishlistBtn.IsEnabled = false;
+
+        }
+        #endregion
+
+
     }
 }

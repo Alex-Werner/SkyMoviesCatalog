@@ -61,7 +61,8 @@ namespace SkyMovie.View
                 var selectedName = ((SearchData)(selectedItem)).Nom;
 
                 ((MainWindow) Application.Current.MainWindow).AddToCollectionBtn.IsEnabled = true;
-                
+                ((MainWindow) Application.Current.MainWindow).AddToWishlistBtn.IsEnabled = true;
+
             }
         }
 

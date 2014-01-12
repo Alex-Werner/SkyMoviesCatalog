@@ -31,8 +31,8 @@
             </Grid.Background>
             <DockPanel HorizontalAlignment="Left" Height="750" Margin="0,0,0,-3" VerticalAlignment="Top" Width="200">
                 <TextBox Name="searchText" Margin="3" DockPanel.Dock="Top" TextChanged="Search_TextChanged" />
-                <ListBox DockPanel.Dock="Top" Height="317" Width="200" Background="{StaticResource MenuBackgoundBrush}" BorderBrush="{StaticResource ResourceKey=MenuBorderBrush}" BorderThickness="1" Opacity="0.5" >
-                    <ListBox x:Name="SkyMenu" ItemContainerStyle="{StaticResource SkyListBoxItem}" Width="190" Height="244">
+                <ListBox DockPanel.Dock="Top" Height="367" Background="Transparent" BorderBrush="{StaticResource ResourceKey=MenuBorderBrush}" BorderThickness="1" Opacity="0.5" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                    <ListBox x:Name="SkyMenu" ItemContainerStyle="{StaticResource SkyListBoxItem}" Width="auto" Height="222" ScrollViewer.VerticalScrollBarVisibility="Disabled" >
                         <!-- TODO : FIND HOW TO PUT A GLOBAL STYLE FOR MENUITEM (Style makes a null pointer exception :'( -->
                         <MenuItem Header="Ma collection" Click="SkyMenu_MaCollection_Click" Width="180px"/>
                         <MenuItem Header="Ma WishList" Click="SkyMenu_MaWishList_Click" Width="180px"/>
@@ -49,6 +49,11 @@
                     </ListBox>
                     <Button Content="Ajouter a la collection" Width="180" x:Name="AddToCollectionBtn" IsEnabled="{Binding AddToCollectedIsEnabled}" Click="AddToCollectionBtn_Click"/>
                     <Button Content="Supprimer de la collection" Width="180" x:Name="DelFromCollectionBtn" IsEnabled="{Binding DelFromCollectionBtnIsEnabled}" Click="DelFromCollectionBtn_Click"/>
+                    <Button Content="" Width="180" Visibility="Hidden"/>
+
+                    <Button Content="Ajouter a la wishlist" Width="180" x:Name="AddToWishlistBtn" IsEnabled="{Binding AddToWishlistIsEnabled}" Click="AddToWishListBtn_Click"/>
+                    <Button Content="Retirer de la wishlist" Width="180" x:Name="DelFromWishlistBtn" IsEnabled="{Binding AddToWishlistIsEnabled}" Click="DelFromWishListBtn_Click"/>
+
                 </ListBox>
                 <TextBlock Width="200" FontWeight="Bold"
                 	Height="265" DockPanel.Dock="Bottom" TextWrapping="WrapWithOverflow" x:Name="SelectedFilmOverview"/>

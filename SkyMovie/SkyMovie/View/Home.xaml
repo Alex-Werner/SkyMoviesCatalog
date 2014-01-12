@@ -5,12 +5,12 @@
 
         <TextBlock Margin="1,1,1,1" HorizontalAlignment="Left" Height="400" TextWrapping="WrapWithOverflow" VerticalAlignment="Top" Width="400" Foreground="White" Background="Black" >
             Features :
-            <LineBreak/>- Search into the IMBDB a movie and add it to your collection (Persistent)
-            <LineBreak/>- Remove a film from your library (persistent)
-            <LineBreak/>- Quickly visualize Title, Synopsis and image when select a film in Ma collection
-            <LineBreak/>- Quickly discover new films like Overall Top Rated, and Last Out
-            
-            <LineBreak/>
+            <LineBreak/>-Search among the history of movies by typing the Movie Name, Of in the last Movie out, the all time-top ranked and the most popular movies. 
+            <LineBreak/>- Add, and remove film in your collection or in your wish list. And select the ones you've seen to track your last acquiered movies that you didn't see yet.
+            <LineBreak/>- Quickly visualise all information on a movies (Title, Synopsis, PosterImage...)
+            <LineBreak/>- Export both collection (posseded and wished) in a Excel file. 
+            <LineBreak/>- Get basic stats on your use of movies.
+            <LineBreak/>- Estime how many time you spent on tv and cry.
             <LineBreak/>
 
             Change Log : 
@@ -19,6 +19,10 @@
 
             Upcoming features : 
             <LineBreak/> - Set option/settings (Like nbPage displayed on recherche things)
+            <LineBreak/> - Adding Loan gest.
+            <LineBreak/> - Import from Excel and add styling.
+            <LineBreak/> - Search on your Hard-Drive for avi, mkv... who seems to be film and propose to check, then add as part of a collection (with stored path for VLC direct play)
+            <LineBreak/> - Add Fun stuff on the Home (Image of 5 top actual movie in theater per exemple)
         </TextBlock>
     </Border>
 

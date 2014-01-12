@@ -15,7 +15,9 @@
             SelectionUnit="CellOrRowHeader" 
             HeadersVisibility="All" 
             RowDetailsVisibilityMode="VisibleWhenSelected" Margin="-10,0,0,0"
-            >
+            SelectedCellsChanged="Search_Grid_SelectedCellsChanged">
+
+            
             <DataGrid.Resources>
                 <Style TargetType="{x:Type DataGridCell}">
                 </Style>

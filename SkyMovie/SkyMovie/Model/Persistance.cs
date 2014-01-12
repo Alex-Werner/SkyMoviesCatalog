@@ -14,8 +14,6 @@ namespace SkyMovie.Model
         private bool isFileExist = false;
         private string filename = "undefined";
 
-        ObservableCollection<Movie> MovieDB;
-
         public Persistance(string _filename)
         {
             this.filename = _filename;
@@ -41,14 +39,13 @@ namespace SkyMovie.Model
             var serialiser = new BinaryFormatter();
             serialiser.Serialize(streamW, _collection);
             streamW.Close();
-            
-            Log.Write("On a ecrit dans le context"+_collection[0].Seen);
+
 
         }
         public ObservableCollection<Movie> getPersistance(string _filename)
         {
             ObservableCollection<Movie> serializedMovieDB;
-            var streamR = File.OpenRead("MovieDB.bin");
+            var streamR = File.OpenRead(_filename);
             var unserialiser = new BinaryFormatter();
             if (streamR.Length == 0)
             {

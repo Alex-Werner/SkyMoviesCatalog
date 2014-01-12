@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using SkyMovie.Interface;
+using SkyMovie.Model;
 
 namespace SkyMovie.View
 {
@@ -24,5 +25,22 @@ namespace SkyMovie.View
         {
             InitializeComponent();
         }
+
+        private void Search_Grid_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            foreach (var selectedCell in e.AddedCells)
+            {
+                var selectedItem = selectedCell.Item;
+                var selectedCol = selectedCell.Column.DisplayIndex;
+
+                var selectedId = ((SearchData)(selectedItem)).Id;
+                var selectedName = ((SearchData)(selectedItem)).Nom;
+
+                ((MainWindow)Application.Current.MainWindow).AddToCollectionBtn.IsEnabled = true;
+                ((MainWindow)Application.Current.MainWindow).AddToWishlistBtn.IsEnabled = true;
+
+            }
+        }
+        
     }
 }

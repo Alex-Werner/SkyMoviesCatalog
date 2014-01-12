@@ -69,6 +69,7 @@ namespace SkyMovie.ViewModel
 
         public MainViewModel()
         {
+            // Display the hours in the bottom-right of the main UI
             Timer timer = new Timer();
             timer.Elapsed += new ElapsedEventHandler(DisplayActualHours); 
             timer.Interval = 1000; // Timer will tick every second 
@@ -79,17 +80,27 @@ namespace SkyMovie.ViewModel
             EnableAddToCollectionBtn = false;
 
             APIClient = new TMDbClient(ConfigurationManager.AppSettings["ApiKey"]);
-            StatusMiniBarText = "Connected to TMDb";
-
+            setStatusBarText("Connected to TMDb");
             
 
             
-            
+        }
+        /// <summary>
+        /// Set the MiniBar text
+        /// </summary>
+        /// <param name="text"></param>
+        void setStatusBarText(string text)
+        {
+            StatusMiniBarText = text;
         }
 
         void DisplayActualHours(object sender, EventArgs e)
         {
             StatusMiniBarHours = DateTime.Now.ToString();
+        }
+        void MovieDB_CollectionChange(object sender, CollectionChangeEventArgs e)
+        {
+            
         }
     }
 }

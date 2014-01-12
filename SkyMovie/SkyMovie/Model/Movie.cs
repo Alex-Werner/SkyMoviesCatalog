@@ -9,7 +9,7 @@ using TMDbLib.Objects.General;
 namespace SkyMovie.Model
 {
     [Serializable]
-    class Movie
+    public class Movie
     {
         #region Property Changed Business
         public event PropertyChangedEventHandler PropertyChanged;

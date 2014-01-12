@@ -104,7 +104,7 @@
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
                 <Setter Property="FontWeight" Value="Bold"/>
-                <Setter Property="Width" Value="180px"/>
+                <Setter Property="Width" Value="auto"/>
             </Trigger>
            
         </Style.Triggers>
